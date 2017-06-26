@@ -5,9 +5,16 @@ OpenCV + Machine Learning
 
 - Make sure to have the correct xml file content and path for cascade detector. 
 - Points in openCV are defined in the order of (X, Y), but matrix is in the order of (nRow, nCOl).
-- The best way to define points in openCV is in `tuple`. Convert `numpy.array.tolist()` to tuple before feeding into openCV functions. Use 
+- The best way to define points in openCV is in `tuple`. Convert `numpy.array.tolist()` to list and then to tuple before feeding into openCV functions. 
+- The transformation matrix `cv2.warpAffine()` lists in the order of (X, Y). 
+- To shrink an image, it will generally look best with cv2.INTER_AREA interpolation, whereas to enlarge an image, it will generally look best with cv2.INTER_CUBIC (slow) or cv2.INTER_LINEAR (faster but still looks OK). Finally, as a general rule, cv2.INTER_LINEAR  interpolation method is recommended as the default for whenever you’re upsampling or downsampling — it simply provides the highest quality results at a modest computation cost.
 
 ## Topics
+### key openCV functions
+- `cv2.getRotationMatrix2D(center, angle, scale)`
+- `cv2.warpAffine(src, M, dsize)`
+
+
 ### JPEG
 A basic explanation can be found [here](http://www.whydomath.org/node/wavlets/basicjpg.html) and [here on stack exchange](https://photo.stackexchange.com/a/34264) and in this [ppt](http://www.dmi.unict.it/~battiato/EI_MOBILE0708/JPEG%20(Bruna).pdf), which includes 4 major steps. 
 
