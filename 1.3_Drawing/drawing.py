@@ -57,7 +57,7 @@ for _ in range(25):
     # in that the element in each unit is different
     color = np.random.randint(0, 256, size=(3, )).tolist()
     center = np.random.randint(0, 300, size=(2, ))
-    cv2.circle(canvas, tuple(center), radius, color, -1)
+    cv2.circle(canvas, tuple(center), radius, tuple(color), -1)
 cv2.imshow("Canvas", canvas)
 cv2.waitKey(0)
 
