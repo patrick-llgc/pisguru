@@ -8,6 +8,15 @@ OpenCV + Machine Learning
 - The best way to define points in openCV is in `tuple`. Convert `numpy.array.tolist()` to list and then to tuple before feeding into openCV functions. 
 - The transformation matrix `cv2.warpAffine()` lists in the order of (X, Y). 
 - To shrink an image, it will generally look best with cv2.INTER_AREA interpolation, whereas to enlarge an image, it will generally look best with cv2.INTER_CUBIC (slow) or cv2.INTER_LINEAR (faster but still looks OK). Finally, as a general rule, cv2.INTER_LINEAR  interpolation method is recommended as the default for whenever you’re upsampling or downsampling — it simply provides the highest quality results at a modest computation cost.
+- Flipping operations could be very useful in augment dataset (flipping images of faces to train machine learing algorithms)
+- There is a difference between OpenCV and NumPy addition. NumPy will perform modulus arithmetic and “wrap around.” OpenCV, on the other hand, will perform clipping and ensure pixel values never fall outside the range [0, 255].
+- `cv.add` behavior:
+```
+>>> cv2.add(np.uint8([10]), np.uint8([250]))
+array([[255]], dtype=uint8)
+>>> cv2.add(np.uint8([10]), np.uint8([260]))
+array([[14]], dtype=uint8)
+```
 
 ## Topics
 ### key openCV functions
