@@ -26,6 +26,8 @@ cv2.imshow("Template", template)
 cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 cv2.waitKey(0)
 
+print('Best match location: x {}, y {}'.format(x, y))
+
 # optinal: overlay
 if args.visualize is not None:
 	merged = orig
