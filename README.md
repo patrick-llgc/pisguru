@@ -20,8 +20,10 @@ array([[14]], dtype=uint8)
 - Cropping can be realized through slicing numpy arrays, and also bitwise operations. Irregular cropping other than rectangular one can only be realized using bitwise operations.
 - For simple masking, `cv2.bitwise_and(image, image, mask=mask)`
 - `cv2.split` and `cv2.merge` are convenient functinos to convert between 3ch color and 1ch graysale images.
-- Image classification and image localization are two distinctive topics in computer vision.
-
+- **Global image classification** and **local object detection** are two distinctive topics in computer vision. The latter can be seen as a special case of the former (when the bouunding box or image size is sufficiently small).
+- An object is what can be represented as a semi-grid structure with noticeable patterns. Objects in real world have substantial variations which makes classification and detection difficult (e.g., viewpoint, deformation, occulusion, illumination, background clutter, intra-class variation, etc). 
+- template matching is the simplest form of object detection technique. The template must be nearly identical to the object to be detected for this technique to work.
+- In template matching, the matching method is very critical. Generally `cv2.TM_CCOEFF` gives good results. 
 
 ## Topics
 ### key openCV functions
