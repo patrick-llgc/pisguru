@@ -17,6 +17,7 @@ array([[255]], dtype=uint8)
 >>> cv2.add(np.uint8([10]), np.uint8([260]))
 array([[14]], dtype=uint8)
 ```
+- Cropping can be realized through slicing numpy arrays, and also bitwise operation. 
 
 ## Topics
 ### key openCV functions
