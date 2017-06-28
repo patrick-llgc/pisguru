@@ -29,3 +29,9 @@ bitwiseNOT = cv2.bitwise_not(rectangle)
 cv2.imshow("NOT", bitwiseNOT)
 cv2.waitKey(0)
 
+# optional: masked xor
+mask = np.zeros((300, 300), dtype='uint8')
+cv2.rectangle(mask, (0, 0), (200, 200), 255, -1)
+masked = cv2.bitwise_xor(rectangle, circle, mask=mask)
+cv2.imshow("Masked", masked)
+cv2.waitKey(0)
