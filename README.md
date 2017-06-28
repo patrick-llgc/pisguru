@@ -19,6 +19,8 @@ array([[14]], dtype=uint8)
 ```
 - Cropping can be realized through slicing numpy arrays, and also bitwise operations. Irregular cropping other than rectangular one can only be realized using bitwise operations.
 - For simple masking, `cv2.bitwise_and(image, image, mask=mask)`
+- `cv2.split` and `cv2.merge` are convenient functinos to convert between 3ch color and 1ch graysale images.
+- Image classification and image localization are two distinctive topics in computer vision.
 
 
 ## Topics
