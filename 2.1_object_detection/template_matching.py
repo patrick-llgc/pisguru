@@ -39,3 +39,4 @@ if args.visualize is not None:
 	cv2.imshow("Detected + Template", merged)
 	cv2.waitKey(0)
 	print(np.max(R))
+

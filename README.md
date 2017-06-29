@@ -24,6 +24,11 @@ array([[14]], dtype=uint8)
 - An object is what can be represented as a semi-grid structure with noticeable patterns. Objects in real world have substantial variations which makes classification and detection difficult (e.g., viewpoint, deformation, occulusion, illumination, background clutter, intra-class variation, etc). 
 - template matching is the simplest form of object detection technique. The template must be nearly identical to the object to be detected for this technique to work.
 - In template matching, the matching method is very critical. Generally `cv2.TM_CCOEFF` gives good results. 
+- dlib is a cross platform computer vision library written in C++. It is best used to train object detection.
+- Training an **object detector** is very similar to training a classifier to (globally) classify the contents of an image, however, both the labels of the images and **annotations**  corresponding to the bounding box surrounding each objectare needed. Features could be extracted from the bounding boxes, and then used to build our object detector.
+- .mat files in Matlab are serialized, like .pickle files in python. Pickling is a way to convert a python object (list, dict, etc.) into a character stream. The idea is that this character stream contains all the information necessary to reconstruct the object in another python script.
+- kernels are used to detect edges
+
 
 ## Topics
 ### key openCV functions
@@ -54,3 +59,18 @@ original block.
 - BGR is used in openCV for historical reasons.
 - BGR images are stored in a [row-major order](http://docs.opencv.org/2.4/doc/tutorials/core/how_to_scan_images/how_to_scan_images.html#how-the-image-matrix-is-stored-in-the-memory)
 ![](http://docs.opencv.org/2.4/_images/math/b6df115410caafea291ceb011f19cc4a19ae6c2c.png)
+
+### Kernels
+- Kernel visualization [tool](http://setosa.io/ev/image-kernels/)
+- Sobel filters are directional. Left Sobel filter is different from right Sobel filter, also both are veritical Sobel filters. When both edges need to be detected, it is better to keep data type to higher forms, take abosolute value and conver back to np.uint8 or cv2.cv_8U.
+
+### Structuring Element and Morphological Operations
+- Structuring elements are similar to kernels, but not used in the context of convolution.
+- Intro to morphological operatinon [link](http://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html)
+- The white top-hat transform returns an image, containing those "objects" or "elements" of an input image that:
+	- Are "smaller" than the structuring element (i.e., places where the structuring element does not fit in), and
+	- are brighter than their surroundings.
+- The black top-hat (or black hat) returns an image, containing the "objects" or "elements" that:
+	- Are "smaller" than the structuring element, and
+	- are darker than their surroundings.
+- In other words, top hat returns features that **would be eroded**; black hat returns features that **would be dilated**. 
