@@ -29,8 +29,9 @@ array([[14]], dtype=uint8)
 - .mat files in Matlab are serialized, like .pickle files in python. Pickling is a way to convert a python object (list, dict, etc.) into a character stream. The idea is that this character stream contains all the information necessary to reconstruct the object in another python script.
 - kernels are used with convolution to detect edges
 - **Smoothing** and **blurring** is one of the most common pre-processing steps in computer vision and image processing
-
-
+- Applying Gaussian smoothing does *not always* reduce accuracy of object detection. It is generally suggested to run two experiemnts, one with and one without Gaussian filter and pick whichever gives better accuracy.  It is [shown](https://gurus.pyimagesearch.com/wp-content/uploads/2015/05/dalal_2005.pdf) that applying Gaussian filter at each layer of the pyramid can actually hurt the performance of the HOG descriptor — hence we skip this step in our image pyramid. 
+- Use generator `yield` to create pipeline if there is too much data involved. 
+- Choosing an appropriate **sliding window size** is critical to obtaining a high-accuracy object detector.
 
 ## Topics
 ### key openCV functions
