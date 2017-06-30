@@ -27,7 +27,8 @@ array([[14]], dtype=uint8)
 - dlib is a cross platform computer vision library written in C++. It is best used to train object detection.
 - Training an **object detector** is very similar to training a classifier to (globally) classify the contents of an image, however, both the labels of the images and **annotations**  corresponding to the bounding box surrounding each objectare needed. Features could be extracted from the bounding boxes, and then used to build our object detector.
 - .mat files in Matlab are serialized, like .pickle files in python. Pickling is a way to convert a python object (list, dict, etc.) into a character stream. The idea is that this character stream contains all the information necessary to reconstruct the object in another python script.
-- kernels are used to detect edges
+- kernels are used with convolution to detect edges
+- **Smoothing** and **blurring** is one of the most common pre-processing steps in computer vision and image processing
 
 
 ## Topics
@@ -74,3 +75,9 @@ original block.
 	- Are "smaller" than the structuring element, and
 	- are darker than their surroundings.
 - In other words, top hat returns features that **would be eroded**; black hat returns features that **would be dilated**. 
+
+### Blurring and Smoothing
+- Median filter is nonlinear and best at removing "salt and pepper" noise, and creates "artistic" feeling as the image would appear blocky. Median filter will remove substantially more noise. Gaussian blur appears more natural.
+- Bilateral filtering considers both the coordinate space and the color space (domain and range filtering, ergo **bi**lateral). Only if the neighboring pixel's value is close enough will it be contributing to the blurring of the pixel of interest. This will selectively blur the image and will not blur the edges. Large filters (d > 5) are very slow, so it is recommended to use d=5 for real-time applications, and perhaps d=9 for offline applications that need heavy noise filtering. (perhaps meitu used it for remove wrinkles!)
+- In both Gaussian blur and bilateral filtering, there are two parameters, d and sigmaSpace that controls behavior in the coordinate space. It is the best practice to specify both. d is the finite (truncated) support of an infinite Gaussian surface with sigmaSpace.
+

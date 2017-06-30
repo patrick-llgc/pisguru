@@ -10,9 +10,9 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 cv2.imshow("Original", image)
 
 rectKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25, 25))
-# blackhat
+# blackhat extract features that would be dilated and smaller than the kernel
 blackhat = cv2.morphologyEx(gray, cv2.MORPH_BLACKHAT, rectKernel)
-# tophat
+# tophat extract features that would be eroded and smaller than the kernel
 tophat = cv2.morphologyEx(gray, cv2.MORPH_TOPHAT, rectKernel)
 
 cv2.imshow("Original", gray)
