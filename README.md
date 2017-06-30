@@ -31,6 +31,7 @@ array([[14]], dtype=uint8)
 - **Smoothing** and **blurring** is one of the most common pre-processing steps in computer vision and image processing
 
 
+
 ## Topics
 ### key openCV functions
 - `cv2.getRotationMatrix2D(center, angle, scale)`
@@ -81,3 +82,23 @@ original block.
 - Bilateral filtering considers both the coordinate space and the color space (domain and range filtering, ergo **bi**lateral). Only if the neighboring pixel's value is close enough will it be contributing to the blurring of the pixel of interest. This will selectively blur the image and will not blur the edges. Large filters (d > 5) are very slow, so it is recommended to use d=5 for real-time applications, and perhaps d=9 for offline applications that need heavy noise filtering. (perhaps meitu used it for remove wrinkles!)
 - In both Gaussian blur and bilateral filtering, there are two parameters, d and sigmaSpace that controls behavior in the coordinate space. It is the best practice to specify both. d is the finite (truncated) support of an infinite Gaussian surface with sigmaSpace.
 
+### Lighting condition
+-	The camera is not actually “filming” the object itself but rather the light reflected from our object. The success of (nearly) all computer vision systems and applications is determined before the developer writes a single line of code. Lighting can mean the difference between success and failure of your computer vision algorithm. The quality of light in a given environment is absolutely crucial, and perhaps the **most important** factor in obtaining your goals. You simply cannot compensate for poor lighting conditions. 
+- The ideal lighting condition should yield high contrast in the ROI, be stable (with high repeatability) and be generalizable (not specific to a particular object).
+- It is extremely important to at least consider the stability of the lighting conditions before creating a computer vision system.s
+
+### color space
+- RGB: Most popularly used. Additive color space, but color definition is not intuitive.
+- HSV: 
+	- HSV is much easier and more intuitive to **define a valid color** range using HSV than RGB.
+	- The HSV color space is used heavily in computer vision applications — especially if we are interested in tracking the color of some object in an image. 
+	- Hue: how pure the color is
+	- Saturation: how white the color is. Saturation = 0 is white, while fully saturated color is pure.
+	- Value: lightness, black to white
+- L\*a\*b\*: 
+	- The Euclidean distance between two arbitrary colors in the L\*a\*b\* color space has actual **perceptual meaning**.
+	- It is very useful in color consistency across platforms, color management. 
+	- The V(alue) channel in HSV is very similar to the L-channel in L\*a\*b\* and to the grayscale image.
+- Grayscale: Grayscale is often used to save space when the color information is not used. Biologically, our eyes are more sensitive to green than red and then than blue. Thus when converting to grayscale, each RGB channel is not weighted uniformly:
+$$Y = 0.299 \times R + 0.587 \times G + 0.114 \times B$$
+Human beings perceive twice green than red, and twice red than blue.
