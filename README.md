@@ -103,3 +103,9 @@ original block.
 - Grayscale: Grayscale is often used to save space when the color information is not used. Biologically, our eyes are more sensitive to green than red and then than blue. Thus when converting to grayscale, each RGB channel is not weighted uniformly:
 $$Y = 0.299 \times R + 0.587 \times G + 0.114 \times B$$
 Human beings perceive twice green than red, and twice red than blue.
+
+### Thresholding
+- To mask the object in a white background, use `cv2.THRESH_BINARY_INV`. 
+- Otsu's method assumes a **bi-modal distribution** of grayscale pixel values. Otsu's method works best after Gaussian blur, which helps to make the histogram more bimodal. 
+	- While using Otsu's method to find threshold, specify the threshold to 0 and supply additional `cv.THRESH_OTSU` to options: `cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU`
+	![](http://docs.opencv.org/trunk/otsu.jpg)

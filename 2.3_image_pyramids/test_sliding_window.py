@@ -20,7 +20,7 @@ win_number = 0
 # loop over the image pyramid 
 for layer in pyramid(image, scale=args.scale):
 	# loop over the sliding windows
-	for (x, y, window) in sliding_window(layer, stepSize=5, windowSize=(winW, winH)):
+	for (x, y, window) in sliding_window(layer, stepSize=10, windowSize=(winW, winH)):
 		# ignore truncated window at boundary
 		if window.shape[0] != winH or window.shape[1] != winW:
 			continue
@@ -30,7 +30,7 @@ for layer in pyramid(image, scale=args.scale):
 		cv2.imshow("Window", clone)
 		win_number += 1
 
-		# cv2.waitKey(1)
-		# time.sleep(0.025)
+		cv2.waitKey(1)
+		time.sleep(0.025)
 
 print('Total number of sliding windows {}'.format(win_number))
