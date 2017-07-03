@@ -109,3 +109,26 @@ Human beings perceive twice green than red, and twice red than blue.
 - Otsu's method assumes a **bi-modal distribution** of grayscale pixel values. Otsu's method works best after Gaussian blur, which helps to make the histogram more bimodal. 
 	- While using Otsu's method to find threshold, specify the threshold to 0 and supply additional `cv.THRESH_OTSU` to options: `cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU`
 	![](http://docs.opencv.org/trunk/otsu.jpg)
+	
+### Gradients
+- We use **gradients** for detecting **edges** in images, which allows us to find contours and outlines of objects in images. We use them as inputs for quantifying images through feature extraction — in fact, highly successful and well-known image descriptors such as **Histogram of Oriented Gradients (HOG)** and **SIFT** are built upon image gradient representations. Gradient images are even used to construct **saliency maps**, which highlight the subjects of an an image.
+- Image with detected edges are generally called **edge maps**.
+- Gradient magnitude and orientation make for excellent features and image descriptors when quantifying and abstractly representing an image. 
+- **Scharr** kernel may give better approximation of the gradient than **Sobel** kernel.
+
+	```
+	Scharr = [[+3, +10, +3],
+			  [0,    0,  0],
+			  [-3, -10, -3]]
+			  
+	Scharr = [[+1, +2, +1],
+			  [0,   0,  0],
+			  [-1, -2, -1]]
+	```
+- The magnitude and orientation of the gradient:
+
+	```
+	mag = np.sqrt(gX ** 2 + gY ** 2)
+	orientation = np.arctan2(gY, gX) * (180 / np.pi) % 180
+	```
+	Note that `gX` and `gY` should be in signed float. If we wish to visualize `gX`, we can use `cv2.convertScaleAbs(gX)` to convert signed float to unsigned 8-bit int. [openCV docs](http://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html)
