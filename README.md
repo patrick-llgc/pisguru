@@ -150,3 +150,11 @@ Human beings perceive twice green than red, and twice red than blue.
 	5. Train linear SVM using hard negative mining (HNM) to reduce false positive rate.
 	6. Non maximum suppression (NMS) to select only one bounding box in one neighborhood.
 - It should be noted that the above steps could be simplified by obtaining positive AND negative examples from the ROI and other parts of the training positive images, respectively. This is implemented in `dlib` library.
+
+### Canny Edge detection
+- Canny edge detection entails four steps:
+	1. Gaussian blur
+	2. Sobel x and y gradients
+	3. Non maximum suppression
+	4. Hysteresis thresholding 
+- The optimal value of the lower and upper boundaries of the **hysteresis thresholding** in Canny detection `cv2.Canny(image, lower, upper)` varies from image to image. In practice, setting upper to 1.33 * image medium and lower to 0.67 * image medium yields very good results. Remember the magic number **sigma=0.33**.
