@@ -33,6 +33,8 @@ array([[14]], dtype=uint8)
 - Use generator `yield` to create pipeline if there is too much data involved. 
 - Choosing an appropriate **sliding window size** is critical to obtaining a high-accuracy object detector.
 
+
+
 ## Topics
 ### key openCV functions
 - `cv2.getRotationMatrix2D(center, angle, scale)`
@@ -131,4 +133,20 @@ Human beings perceive twice green than red, and twice red than blue.
 	mag = np.sqrt(gX ** 2 + gY ** 2)
 	orientation = np.arctan2(gY, gX) * (180 / np.pi) % 180
 	```
+
 	Note that `gX` and `gY` should be in signed float. If we wish to visualize `gX`, we can use `cv2.convertScaleAbs(gX)` to convert signed float to unsigned 8-bit int. [openCV docs](http://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html)
+
+### HOG + Linear SVM object detector
+- HOG + Linear SVM is superior to Haar Cascade (Viola-Jones Detector):
+	- Haar cascades are extremely slow to train, taking days to work on even small datasets.
+	- Haar cascades tend to have an **alarmingly high false-positive rate** (i.e. an object, such as a face, is detected in a location where the object does not exist).
+	- What’s worse than falsely detecting an object in an image? Not detecting an object that actually does exist due to sub-optimal parameter choices.
+	- Speaking of parameters: it can be especially challenging to tune, tweak, and dial in the optimal detection parameters; furthermore, the optimal parameters can vary on an image-to-image basis!
+- HOG + Linear SVM entails 6 steps:
+	1. Obtain positive examples by extracting HOG features from ROIs within positive images
+	2. Obtain negative examples by extracting HOG features from negative images
+	3. Train linear SVM.
+	4. Obtain hard negative examples by collecting false positives on negative images
+	5. Train linear SVM using hard negative mining (HNM) to reduce false positive rate.
+	6. Non maximum suppression (NMS) to select only one bounding box in one neighborhood.
+- It should be noted that the above steps could be simplified by obtaining positive AND negative examples from the ROI and other parts of the training positive images, respectively. This is implemented in `dlib` library.
