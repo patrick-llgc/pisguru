@@ -36,6 +36,24 @@ array([[14]], dtype=uint8)
 
 
 ## Topics
+### virtualenv in iPython notebook [link](https://help.pythonanywhere.com/pages/IPythonNotebookVirtualenvs/)
+- Install the ipython kernel module into your virtualenv
+
+```
+workon my-virtualenv-name  # activate your virtualenv, if you haven't already
+pip install ipykernel
+```
+
+- Now run the kernel "self-install" script:
+```
+python -m ipykernel install --user --name=my-virtualenv-name
+```
+Replacing the --name parameter as appropriate.
+
+- You should now be able to see your kernel in the IPython notebook menu: Kernel -> Change kernel and be able so switch to it (you may need to refresh the page before it appears in the list). IPython will remember which kernel to use for that notebook from then on.
+
+
+
 ### key openCV functions
 - `cv2.getRotationMatrix2D(center, angle, scale)`
 - `cv2.warpAffine(src, M, dsize)`
@@ -158,3 +176,9 @@ Human beings perceive twice green than red, and twice red than blue.
 	3. Non maximum suppression
 	4. Hysteresis thresholding 
 - The optimal value of the lower and upper boundaries of the **hysteresis thresholding** in Canny detection `cv2.Canny(image, lower, upper)` varies from image to image. In practice, setting upper to 1.33 * image medium and lower to 0.67 * image medium yields very good results. Remember the magic number **sigma=0.33**.
+
+
+### Contours
+- Contours can sometimes replace machine learning at solving some problems efficiently.
+
+
