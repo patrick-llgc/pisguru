@@ -180,5 +180,6 @@ Human beings perceive twice green than red, and twice red than blue.
 
 ### Contours
 - Contours can sometimes replace machine learning at solving some problems efficiently.
-
+- For better contour extraction accuracy, it is preferable to use **binary** image rather than grayscale image.
+- It is more productive to use `cv2.drawContours()` to draw all contours while slicing the contour list, rather than specifying the contour index, i.e., `cv2.drawContours(clone, cnts[:2], -1, (0, 255, 0), 2)`
 
