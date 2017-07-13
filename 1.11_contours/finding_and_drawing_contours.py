@@ -46,7 +46,7 @@ if external:
 clone = image.copy()
 cv2.destroyAllWindows()
 for c in contours:
-    mask = np.zeros(gray.shape, dtype=np.uint8)
+    mask = np.zeros(clone.shape, dtype=np.uint8)
     cv2.drawContours(mask, [c], -1, 255, -1)
 
     cv2.imshow("Image", clone)

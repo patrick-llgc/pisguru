@@ -182,4 +182,11 @@ Human beings perceive twice green than red, and twice red than blue.
 - Contours can sometimes replace machine learning at solving some problems efficiently.
 - For better contour extraction accuracy, it is preferable to use **binary** image rather than grayscale image.
 - It is more productive to use `cv2.drawContours()` to draw all contours while slicing the contour list, rather than specifying the contour index, i.e., `cv2.drawContours(clone, cnts[:2], -1, (0, 255, 0), 2)`
+- Use contour mask and bitwise_and to extract each shape in the image.
+
+	```
+	mask = np.zeros(clone.shape, dtype=np.uint8)
+	cv2.drawContours(mask, [c], -1, 255, -1)
+	cv2.imshow("Image + Mask", cv2.bitwise_and(clone, clone, mask=mask))
+	```
 
