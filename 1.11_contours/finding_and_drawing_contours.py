@@ -11,8 +11,6 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 cv2.imshow("Orig", image)
 cv2.imshow("Gray", gray)
 
-# if background is white, invert the image
-gray = 255 - gray
 
 # find and draw contours
 (im2, contours, hierarchy) = cv2.findContours(gray.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
@@ -31,7 +29,7 @@ for (i, c) in enumerate(contours):
     cv2.imshow("Single contour", clone)
     cv2.waitKey(0)
 
-external = 0
+external = 1
 if external:
     # retrieve only EXTERNAL contours
     clone = image.copy()
@@ -46,7 +44,8 @@ if external:
 clone = image.copy()
 cv2.destroyAllWindows()
 for c in contours:
-    mask = np.zeros(clone.shape, dtype=np.uint8)
+    # NOTE: make sure mask is 2-D 
+    mask = np.zeros(clone.shape[:2], dtype="uint8")
     cv2.drawContours(mask, [c], -1, 255, -1)
 
     cv2.imshow("Image", clone)

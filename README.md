@@ -189,4 +189,4 @@ Human beings perceive twice green than red, and twice red than blue.
 	cv2.drawContours(mask, [c], -1, 255, -1)
 	cv2.imshow("Image + Mask", cv2.bitwise_and(clone, clone, mask=mask))
 	```
-
+- Contour properties: Standard bounding box is used a lot more than rotated bounding box. Minimum enclosing circle or fit ellipse are relatively rarely used. Arc length and area are used very often for contour approximation.
