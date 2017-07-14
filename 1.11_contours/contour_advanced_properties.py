@@ -3,7 +3,7 @@ import cv2
 image = cv2.imread("../_images/more_shapes_example.png")
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-_, cnts, _ = cv2.findContours(gray, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+_, cnts, _ = cv2.findContours(gray.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
 for i, c in enumerate(cnts):
     x, y, w, h = cv2.boundingRect(c)

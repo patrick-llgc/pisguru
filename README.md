@@ -195,6 +195,4 @@ Human beings perceive twice green than red, and twice red than blue.
 - Convex Hull: Given n points in the Euclidean space, the convex hull is the minimum convex set that contains the n points.
 - Convexity defect: the region between a contour and the convex hull. One important application of the convex hull and convexity defects is hand gesture recognition, as it allows us to utilize the convexity defects of the hand to count the number of fingers.
 - Solidity: `solidity = contour area / convex hull area`. It is perfect to distinguish between X and O shapes.
-- 
-
-
+- Contour approximation: the second parameter in `cv2.approxPolyDP(curve, epsilon, closed)` epsilon is a parameter specifying the approximation accuracy. This is the maximum distance between the original curve and its approximation. The internal contour approximation algorithm is looking for points to discard. The larger the epsilon value is, the more points will be discarded. Similarly, the smaller the epsilon value is, the more points will be kept.
