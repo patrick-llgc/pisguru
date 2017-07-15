@@ -1,6 +1,9 @@
 # pisguru
 OpenCV + Machine Learning
 
+### Official openCV + python Tutorial pdf
+[link](./_docs/opencv-python-tutorial-release1-20170703.pdf)
+
 ### Misc notes:
 
 - Make sure to have the correct xml file content and path for cascade detector. 
@@ -123,12 +126,14 @@ original block.
 - Grayscale: Grayscale is often used to save space when the color information is not used. Biologically, our eyes are more sensitive to green than red and then than blue. Thus when converting to grayscale, each RGB channel is not weighted uniformly:
 $$Y = 0.299 \times R + 0.587 \times G + 0.114 \times B$$
 Human beings perceive twice green than red, and twice red than blue.
+- Note that, grayscale is not always the best way to flatten image to a single channel. Sometimes, convert to HSV space and then use V can yield better results.
 
 ### Thresholding
 - To mask the object in a white background, use `cv2.THRESH_BINARY_INV`. 
 - Otsu's method assumes a **bi-modal distribution** of grayscale pixel values. Otsu's method works best after Gaussian blur, which helps to make the histogram more bimodal. 
 	- While using Otsu's method to find threshold, specify the threshold to 0 and supply additional `cv.THRESH_OTSU` to options: `cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU`
 	![](http://docs.opencv.org/trunk/otsu.jpg)
+- Adaptive filtering: scikit-image has a function `skimage.filters.threshold_adaptive()` or `skimage.filters.threshold_local()` [link](http://scikit-image.org/docs/dev/api/skimage.filters.html#skimage.filters.threshold_adaptive), which has more powerful options than `cv2.adaptiveThreshold()` [link](http://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html)
 	
 ### Gradients
 - We use **gradients** for detecting **edges** in images, which allows us to find contours and outlines of objects in images. We use them as inputs for quantifying images through feature extraction — in fact, highly successful and well-known image descriptors such as **Histogram of Oriented Gradients (HOG)** and **SIFT** are built upon image gradient representations. Gradient images are even used to construct **saliency maps**, which highlight the subjects of an an image.
@@ -177,7 +182,6 @@ Human beings perceive twice green than red, and twice red than blue.
 	4. Hysteresis thresholding 
 - The optimal value of the lower and upper boundaries of the **hysteresis thresholding** in Canny detection `cv2.Canny(image, lower, upper)` varies from image to image. In practice, setting upper to 1.33 * image medium and lower to 0.67 * image medium yields very good results. Remember the magic number **sigma=0.33**.
 
-
 ### Contours
 - Contours can sometimes replace machine learning at solving some problems efficiently.
 - For better contour extraction accuracy, it is preferable to use **binary** image rather than grayscale image.
@@ -196,6 +200,6 @@ Human beings perceive twice green than red, and twice red than blue.
 - `cv2.calcHist()` can be used to calculate 1D or multi-dimensional histograms and more powerful than `plt.hist()`.
 - When plotting multi-dimensional hitograms, 
 
-
-
-
+### Connected Component Analysis
+- Connected component analysis is performed on **binary** or thresholded images.
+- In openCV (cf [link](https://stackoverflow.com/questions/35854197/how-to-use-opencvs-connected-components-with-stats-in-python)), use `cv2.connectedComponentsWithStats()` or `cv2.connectedComponents()`. Alternatively, in scikit-image, use `skimage.measure.label()`.

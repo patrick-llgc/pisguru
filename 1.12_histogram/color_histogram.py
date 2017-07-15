@@ -46,7 +46,7 @@ ax = fig.add_subplot(133)
 hist = cv2.calcHist([chans[0], chans[2]], [0, 1], None, [32, 32],
 	[0, 256, 0, 256])
 p = ax.imshow(hist, interpolation="nearest")
-ax.set_title("2D Color Histogram (G and B)")
+ax.set_title("2D Color Histogram (B and R)")
 plt.colorbar(p)
 print('2D histogram shape {} with {} values'.format(
     hist.shape, hist.flatten().shape))
