@@ -125,7 +125,7 @@ $$Y = 0.299 \times R + 0.587 \times G + 0.114 \times B$$
 Human beings perceive twice green than red, and twice red than blue.
 
 ### Thresholding
-- To mask an object in a white background, use `cv2.THRESH_BINARY_INV`. 
+- To mask the object in a white background, use `cv2.THRESH_BINARY_INV`. 
 - Otsu's method assumes a **bi-modal distribution** of grayscale pixel values. Otsu's method works best after Gaussian blur, which helps to make the histogram more bimodal. 
 	- While using Otsu's method to find threshold, specify the threshold to 0 and supply additional `cv.THRESH_OTSU` to options: `cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU`
 	![](http://docs.opencv.org/trunk/otsu.jpg)
@@ -191,8 +191,11 @@ Human beings perceive twice green than red, and twice red than blue.
 	```
 - Contour properties: Standard bounding box is used a lot more than rotated bounding box. Minimum enclosing circle or fit ellipse are relatively rarely used. Arc length and area are used very often for contour approximation.
 - Aspect ratio: `aspect ratio = image width / image height`. Aspect ratio is very effecitve in detecting certain objects. For example, most digits and characters on a license plate have an aspect ratio that is less than 1. The license plate itself is an example of a object that will have an aspect ratio greater than 1. Squares and circles are examples of shapes that will have an aspect ratio of approximately 1.
-- Extent: extent = `shape area / bounding box area`. You’ll have to manually inspect the values of the extent to determine which ranges are good for distinguishing between shapes.
-- Convex Hull: Given n points in the Euclidean space, the convex hull is the minimum convex set that contains the n points.
-- Convexity defect: the region between a contour and the convex hull. One important application of the convex hull and convexity defects is hand gesture recognition, as it allows us to utilize the convexity defects of the hand to count the number of fingers.
-- Solidity: `solidity = contour area / convex hull area`. It is perfect to distinguish between X and O shapes.
-- Contour approximation: the second parameter in `cv2.approxPolyDP(curve, epsilon, closed)` epsilon is a parameter specifying the approximation accuracy. This is the maximum distance between the original curve and its approximation. The internal contour approximation algorithm is looking for points to discard. The larger the epsilon value is, the more points will be discarded. Similarly, the smaller the epsilon value is, the more points will be kept.
+
+### Histogram
+- `cv2.calcHist()` can be used to calculate 1D or multi-dimensional histograms and more powerful than `plt.hist()`.
+- When plotting multi-dimensional hitograms, 
+
+
+
+

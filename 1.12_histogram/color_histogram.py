@@ -23,6 +23,40 @@ for chan, color in zip(chans, colors):
 	hist = cv2.calcHist([chan], [0], None, [256], [0, 256])
 	plt.plot(hist, color=color)
 	plt.xlim([0, 256])
-plt.show()
 
 # 2D histograms
+fig = plt.figure()
+
+ax = fig.add_subplot(131)
+hist = cv2.calcHist([chans[1], chans[0]], [0, 1], None, [32, 32],
+	[0, 256, 0, 256])
+p = ax.imshow(hist, interpolation="nearest")
+ax.set_title("2D Color Histogram (G and B)")
+plt.colorbar(p)
+
+ax = fig.add_subplot(132)
+hist = cv2.calcHist([chans[1], chans[2]], [0, 1], None, [32, 32],
+	[0, 256, 0, 256])
+p = ax.imshow(hist)
+ax.set_title("2D Color Histogram (G and R)")
+plt.colorbar(p)
+
+ax = fig.add_subplot(133)
+hist = cv2.calcHist([chans[0], chans[2]], [0, 1], None, [32, 32],
+	[0, 256, 0, 256])
+p = ax.imshow(hist, interpolation="nearest")
+ax.set_title("2D Color Histogram (G and B)")
+plt.colorbar(p)
+
+# 3D histogram
+fig = plt.figure()
+ax = fig.add_subplot(131)
+hist = cv2.calcHist([chans[1], chans[0], chans[2]], [0, 1, 2], None, [32, 32, 32],
+	[0, 256, 0, 256, 0, 256])
+p = ax.imshow(hist, interpolation="nearest")
+ax.set_title("2D Color Histogram (G and B)")
+plt.colorbar(p)
+
+
+# display
+plt.show()
