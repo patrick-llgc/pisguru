@@ -10,7 +10,9 @@ OpenCV + Machine Learning
 - Points in openCV are defined in the order of (X, Y), but matrix is in the order of (nRow, nCOl).
 - The best way to define points in openCV is in `tuple`. Convert `numpy.array.tolist()` to list and then to tuple before feeding into openCV functions. 
 - The transformation matrix `cv2.warpAffine()` lists in the order of (X, Y). 
-- To shrink an image, it will generally look best with cv2.INTER_AREA interpolation, whereas to enlarge an image, it will generally look best with cv2.INTER_CUBIC (slow) or cv2.INTER_LINEAR (faster but still looks OK). Finally, as a general rule, cv2.INTER_LINEAR  interpolation method is recommended as the default for whenever you’re upsampling or downsampling — it simply provides the highest quality results at a modest computation cost.
+- To shrink an image, it will generally look best with cv2.INTER_AREA interpolation, whereas to enlarge
+
+ an image, it will generally look best with cv2.INTER_CUBIC (slow) or cv2.INTER_LINEAR (faster but still looks OK). Finally, as a general rule, cv2.INTER_LINEAR  interpolation method is recommended as the default for whenever you’re upsampling or downsampling — it simply provides the highest quality results at a modest computation cost.
 - Flipping operations could be very useful in augment dataset (flipping images of faces to train machine learing algorithms)
 - There is a difference between OpenCV and NumPy addition. NumPy will perform modulus arithmetic and “wrap around.” OpenCV, on the other hand, will perform clipping and ensure pixel values never fall outside the range [0, 255].
 - `cv.add` behavior:
@@ -35,6 +37,7 @@ array([[14]], dtype=uint8)
 - Applying Gaussian smoothing does *not always* reduce accuracy of object detection. It is generally suggested to run two experiemnts, one with and one without Gaussian filter and pick whichever gives better accuracy.  It is [shown](https://gurus.pyimagesearch.com/wp-content/uploads/2015/05/dalal_2005.pdf) that applying Gaussian filter at each layer of the pyramid can actually hurt the performance of the HOG descriptor — hence we skip this step in our image pyramid. 
 - Use generator `yield` to create pipeline if there is too much data involved. 
 - Choosing an appropriate **sliding window size** is critical to obtaining a high-accuracy object detector.
+- When there is a lot of parameters to be passed to a command line tool, it is best to design a JSON file to store all the parameters.
 
 
 
@@ -127,6 +130,9 @@ original block.
 $$Y = 0.299 \times R + 0.587 \times G + 0.114 \times B$$
 Human beings perceive twice green than red, and twice red than blue.
 - Note that, grayscale is not always the best way to flatten image to a single channel. Sometimes, convert to HSV space and then use V can yield better results.
+- HDF5 is a binary data format that aims at facilitating easy storage and manipulation of huge amounts of data. HDF5 is written in C, but can be accessed through `h5py` module. When using HDF5 with `h5py`, you can think of your data as a gigantic NumPy array that is too large to fit into main memory, but can still be accessed and manipulated just the same.
+
+
 
 ### Thresholding
 - To mask the object in a white background, use `cv2.THRESH_BINARY_INV`. 
@@ -159,20 +165,6 @@ Human beings perceive twice green than red, and twice red than blue.
 
 	Note that `gX` and `gY` should be in signed float. If we wish to visualize `gX`, we can use `cv2.convertScaleAbs(gX)` to convert signed float to unsigned 8-bit int. [openCV docs](http://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html)
 
-### HOG + Linear SVM object detector
-- HOG + Linear SVM is superior to Haar Cascade (Viola-Jones Detector):
-	- Haar cascades are extremely slow to train, taking days to work on even small datasets.
-	- Haar cascades tend to have an **alarmingly high false-positive rate** (i.e. an object, such as a face, is detected in a location where the object does not exist).
-	- What’s worse than falsely detecting an object in an image? Not detecting an object that actually does exist due to sub-optimal parameter choices.
-	- Speaking of parameters: it can be especially challenging to tune, tweak, and dial in the optimal detection parameters; furthermore, the optimal parameters can vary on an image-to-image basis!
-- HOG + Linear SVM entails 6 steps:
-	1. Obtain positive examples by extracting HOG features from ROIs within positive images
-	2. Obtain negative examples by extracting HOG features from negative images
-	3. Train linear SVM.
-	4. Obtain hard negative examples by collecting false positives on negative images
-	5. Train linear SVM using hard negative mining (HNM) to reduce false positive rate.
-	6. Non maximum suppression (NMS) to select only one bounding box in one neighborhood.
-- It should be noted that the above steps could be simplified by obtaining positive AND negative examples from the ROI and other parts of the training positive images, respectively. This is implemented in `dlib` library.
 
 ### Canny Edge detection
 - Canny edge detection entails four steps:
@@ -203,3 +195,40 @@ Human beings perceive twice green than red, and twice red than blue.
 ### Connected Component Analysis
 - Connected component analysis is performed on **binary** or thresholded images.
 - In openCV (cf [link](https://stackoverflow.com/questions/35854197/how-to-use-opencvs-connected-components-with-stats-in-python)), use `cv2.connectedComponentsWithStats()` or `cv2.connectedComponents()`. Alternatively, in scikit-image, use `skimage.measure.label()`.
+
+### Image descriptor
+- [Haralick features](http://www.pyimagesearch.com/2015/12/07/local-binary-patterns-with-python-opencv/), or texture features, can be used to describe image texture.
+
+### HOG + Linear SVM object detector
+- HOG + Linear SVM is superior to Haar Cascade (Viola-Jones Detector):
+	- Haar cascades are extremely slow to train, taking days to work on even small datasets.
+	- Haar cascades tend to have an **alarmingly high false-positive rate** (i.e. an object, such as a face, is detected in a location where the object does not exist).
+	- What’s worse than falsely detecting an object in an image? Not detecting an object that actually does exist due to sub-optimal parameter choices.
+	- Speaking of parameters: it can be especially challenging to tune, tweak, and dial in the optimal detection parameters; furthermore, the optimal parameters can vary on an image-to-image basis!
+- HOG + Linear SVM entails 6 steps:
+	1. Obtain positive examples by extracting HOG features from ROIs within positive images
+	2. Obtain negative examples by extracting HOG features from negative images
+	3. Train linear SVM.
+	4. Obtain hard negative examples by collecting false positives on negative images
+	5. Train linear SVM using hard negative mining (HNM) to reduce false positive rate.
+	6. Non maximum suppression (NMS) to select only one bounding box in one neighborhood.
+- It should be noted that the above steps could be simplified by obtaining positive AND negative examples from the ROI and other parts of the training positive images, respectively. This is implemented in `dlib` library.
+
+### Object detection framework
+1. Data preparation
+2. Feature extraction
+3. Detector training
+4. Non-maxima suppression
+5. Hard negative mining
+6. Detection retraining
+
+### HOG
+- Two most important parameters in HOG descriptor are `pixel_per_cell` and `cell_per_block`.
+- It’s very common to have your `pixels_per_cell` be a multiple of four. The `cells_per_block` is also *almost always* in the set {1, 2, 3}
+- If we have N*M image, `pixel_per_cell` is (n, m), and `cell_per_block` is (c, c) (where c = 1, 2, or 3), `orientations` is k, then the total number of features is
+	
+	```
+	((N/n + 1 - c)  * c * (M/m + 1 - c) * c ) * k
+	= (N/n + 1 -c) * (M/m + 1 - c) * c * c * k
+	```
+For example, we have image patches of 96*64, (4, 4) pixels per cell, (2, 2) cells per block, n_orientation is 9, then total number of features is (96/4+1-2)(64/4+1-2) * 2 * 2 * 9 = 12420.

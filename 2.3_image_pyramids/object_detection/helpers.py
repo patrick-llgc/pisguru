@@ -27,6 +27,6 @@ def sliding_window(image, stepSize, windowSize):
 	for y in range(0, image.shape[0], stepSize):
 		for x in range(0, image.shape[1], stepSize):
 			# this slicing might yield truncated window at the boundary
-			# add check when use this function
+			# add external check when this function is used
 			yield (x, y, image[y:y + windowSize[1], x:x + windowSize[0]])
 

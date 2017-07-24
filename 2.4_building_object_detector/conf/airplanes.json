@@ -1,0 +1,26 @@
+{
+    "image_dataset": "/Users/langechuanliu/object_detection_data/caltech101/101_ObjectCategories/airplanes",
+    "image_annotations": "/Users/langechuanliu/object_detection_data/caltech101/Annotations/Airplanes_Side_2",
+    "image_distractions": "/Users/langechuanliu/object_detection_data/sceneclass13",
+
+    "features_path": "/Users/langechuanliu/object_detection_data/output/airplane_features.hdf5",
+    "percent_gt_images": 0.05,
+    "offset": 5,
+    "use_flip": true,
+    "num_distraction_images": 50,
+    "num_distraction_per_image": 10,
+
+    "orientations": 9,
+    "pixels_per_cell": [4, 4],
+    "cells_per_block": [2, 2],
+    "normalize": true,
+
+    "windows_step": 4,
+    "overlap_thresh": 0.3,
+    "pyramid_scale": 1.5,
+    "window_dim": [150, 50],
+    "min_probability": 0.7,
+
+    "classifier_path": "/Users/langechuanliu/object_detection_data/output/airplane_model.pickle",
+    "C": 0.01
+}
